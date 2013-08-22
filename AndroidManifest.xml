@@ -2,24 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.indivisible.quickspace"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0"
+    >
 
     <uses-sdk 
-        android:minSdkVersion="8" 
-        android:targetSdkVersion="11" />
+        android:minSdkVersion="10" 
+        android:targetSdkVersion="14"
+        />
 
 	<uses-permission
-		android:name="android.permission.READ_EXTERNAL_STORAGE" />
+		android:name="android.permission.READ_EXTERNAL_STORAGE"
+		/>
 		
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:allowBackup="True"
+        >
         <activity
             android:label="@string/app_name"
             android:name=".MainActivity"
 			android:excludeFromRecents="true"
-			android:theme="@android:style/Theme.NoDisplay" >
-            <intent-filter >
+			android:theme="@android:style/Theme.NoDisplay"
+			>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
