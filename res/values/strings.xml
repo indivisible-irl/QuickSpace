@@ -3,5 +3,12 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">QuickSpace</string>
+    
+    <string name="row_title">Title</string>
+    <string name="row_space_total">%3.2fGb Total</string>
+    <string name="row_space_free_gb">%3.2Gb Free</string>
+    <string name="row_space_free_percentage">%3.1%% Free</string>
+    <string name="row_pie_descrip">Free space pie chart</string>
+    
 
 </resources>

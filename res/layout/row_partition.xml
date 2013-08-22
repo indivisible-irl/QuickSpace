@@ -1,36 +1,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
 	
-	<!-- pie chart -->
+	<!--  pie chart (canvas drawn pie chart, fixed width) -->
+	<!--  TODO TODO different sizes for dpis -->
 	<ImageView
 		android:id="@+id/iv_piechart"
 		android:layout_width="75dp"
 		android:layout_height="75dp"
 		android:src="@android:drawable/btn_plus"
+		android:contentDescription="@string/row_pie_descrip"
 		/>
 	
-	<!-- stats -->
+	<!--  stats section (2 rows, right panel) -->
 	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical" >
+		android:layout_width="fill_parent"
+		android:layout_height="match_parent"
+		android:weightSum="5"
+		android:orientation="vertical"
+		>
 		
-		<TextView
-			android:id="@+id/row_title"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_gravity="left"
-			android:text="Title" />
+	    <!--  Title row  -->
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="2"
+	        android:orientation="horizontal"
+	        >
+	        
+		    <!--  Title  -->
+			<TextView
+				android:id="@+id/row_title"
+				android:layout_width="fill_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center"
+				android:text="@string/row_title"
+				/>
+			<!--  total partition space  -->
+			<TextView 
+			    android:id="@+id/row_total_space"
+			    android:layout_width="wrap_content"
+			    android:layout_height="match_parent"
+			    android:text="@string/row_space_total"
+			    />
+		
+		</LinearLayout>
 		
 	
-		<!-- space text  -->
+		<!--  space text  -->
 		<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="0dp"
-			android:layout_weight="1"
-			android:orientation="horizontal">
+			android:layout_height="0dp"
+			android:layout_width="match_parent"
+			android:layout_weight="3"
+			android:orientation="horizontal"
+			>
 		
 			<TextView
 				android:id="@+id/row_freePercent"
@@ -38,14 +63,16 @@
 				android:layout_width="0dp"
 				android:layout_weight="1"
 				android:gravity="center_horizontal"
-				android:text="pc%" />
+				android:text="@string/row_space_free_percentage"
+				/>
 			<TextView
 				android:id="@+id/row_freeGigs"
 				android:layout_height="wrap_content"
 				android:layout_width="0dp"
 				android:layout_weight="1"
 				android:gravity="center_horizontal"
-				android:text="gbGb" />
+				android:text="@string/row_space_free_gb"
+				/>
 			
 		</LinearLayout>
 		
