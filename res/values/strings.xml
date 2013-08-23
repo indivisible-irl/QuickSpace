@@ -5,10 +5,15 @@
     <string name="app_name">QuickSpace</string>
     
     <string name="row_title">Title</string>
+    <string name="row_free_label">Free:</string>
     <string name="row_space_total">%3.2fGb Total</string>
     <string name="row_space_free_gb">%3.2Gb Free</string>
     <string name="row_space_free_percentage">%3.1%% Free</string>
     <string name="row_pie_descrip">Free space pie chart</string>
+    
+    <string name="storage_internal">Internal Storage</string>
+    <string name="storage_internal_sdcard">Emulated SD Card</string>
+    <string name="storage_external_sdcard">External SD Card</string>
     
 
 </resources>

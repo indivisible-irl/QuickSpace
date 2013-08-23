@@ -25,8 +25,7 @@
 	    <!--  Title row  -->
 	    <LinearLayout
 	        android:layout_width="fill_parent"
-	        android:layout_height="0dp"
-	        android:layout_weight="2"
+	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	        >
 	        
@@ -34,8 +33,9 @@
 			<TextView
 				android:id="@+id/row_title"
 				android:layout_width="fill_parent"
-				android:layout_height="match_parent"
+				android:layout_height="wrap_content"
 				android:layout_gravity="center"
+				android:textSize="20sp"
 				android:text="@string/row_title"
 				/>
 			<!--  total partition space  -->
@@ -51,12 +51,19 @@
 	
 		<!--  space text  -->
 		<LinearLayout
-			android:layout_height="0dp"
+			android:layout_height="fill_parent"
 			android:layout_width="match_parent"
-			android:layout_weight="3"
 			android:orientation="horizontal"
 			>
-		
+			
+		    <!--  label (free:) -->
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:text="@string/row_free_label"
+		        android:textSize="18sp"
+		        />
+		    
 			<TextView
 				android:id="@+id/row_freePercent"
 				android:layout_height="wrap_content"
@@ -64,6 +71,7 @@
 				android:layout_weight="1"
 				android:gravity="center_horizontal"
 				android:text="@string/row_space_free_percentage"
+				android:textSize="18sp"
 				/>
 			<TextView
 				android:id="@+id/row_freeGigs"
@@ -72,6 +80,7 @@
 				android:layout_weight="1"
 				android:gravity="center_horizontal"
 				android:text="@string/row_space_free_gb"
+				android:textSize="18sp"
 				/>
 			
 		</LinearLayout>

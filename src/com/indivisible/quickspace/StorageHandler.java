@@ -6,56 +6,97 @@ import android.util.*;
 import java.io.*;
 import java.util.*;
 
+/** class to contain and parse all storage partitions **/
 public class StorageHandler
 {
     private static final String TAG = "com.indivisible.quickspace.storagehandler";
 	
-    static final String TYPE_INTERNAL = "internal";
-	static final String TYPE_EXTERNAL = "external";
-	static final String TYPE_TERTIARY = "tertiary";
+    public static final String TYPE_INTERNAL_STORE = "internal";
+    public static final String TYPE_INTERNAL_SDCARD = "int_sdcard";
+	public static final String TYPE_EXTERNAL_SDCARD = "ext_sdcard";
+	public static final String TYPE_TERTIARY = "tertiary";
 	
-    ArrayList<Storage> allStores;
+    private ArrayList<Storage> allStores;
 	
-	
-	/* class to contain and parse all storage partitions */
-	public StorageHandler(Context context) {
+    
+	////	constructor
+    
+	/** class to contain and parse all storage partitions **/
+	public StorageHandler(Context context)
+	{
 		allStores = new ArrayList<Storage>();
 		addNativeStorage(context);
-		addTertiaryStorage();
+		addTertiaryStorage(context);
 	}
 	
-	/* append native storage to the List */
-	private void addNativeStorage(Context context) {
+	
+	////	add storage to ArrayList
+	
+	/** append native storage to the List **/
+	private void addNativeStorage(Context context)
+	{
 		// internal storage
 		File internal = Environment.getRootDirectory();
-		allStores.add(new Storage(internal, TYPE_INTERNAL));
-		Log.d(TAG, "internal path: " +internal.getAbsolutePath());
-		Log.d(TAG, "internal size: " +internal.getTotalSpace()/1024/1024);
-		Log.d(TAG, "internal free: " +internal.getFreeSpace()/1024/1024);
+		allStores.add(new Storage(internal, TYPE_INTERNAL_STORE, context));
 		
-		// default sd card. can be either internal or external
-		File sdCardMain = context.getFilesDir();
-		allStores.add(new Storage(sdCardMain, TYPE_INTERNAL));
+		// default external storage. can be either internal (emulated) or external (sdCard)
+		File externalStorage = Environment.getExternalStorageDirectory();
+		if (Environment.isExternalStorageRemovable())
+		{
+			allStores.add(new Storage(externalStorage, TYPE_EXTERNAL_SDCARD, context));
+		}
+		else
+		{
+			allStores.add(new Storage(externalStorage, TYPE_INTERNAL_SDCARD, context));
+		}
+		
 	}
 	
-	/* append tertiary storage to the List */
-	private void addTertiaryStorage() {
+	/** append tertiary storage to the List **/
+	private void addTertiaryStorage(Context context)
+	{
 		String[] roots = RenzhiStorage.getStorageDirectories();
-		for (String root : roots) {
+		for (String root : roots)
+		{
 			File rootDir = new File(root);
-			if (rootDir.canRead()) {
-			    allStores.add(new Storage(rootDir, TYPE_TERTIARY));
-			} else {
+			if (rootDir.canRead())
+			{
+			    allStores.add(new Storage(rootDir, TYPE_TERTIARY, context));
+			}
+			else
+			{
 				Log.e(TAG, "Cannot read: " +rootDir.getAbsolutePath());
 			}
 		}
 	}
 	
-	/* test standard external storage for readability */
-	private boolean isExternalStorageReadable() {
+	////	methods working with the ArrayList
+	
+	/** update all store's stats **/
+	public void update()
+	{
+		for (Storage store : allStores)
+		{
+			store.updateStats();
+		}
+	}
+	
+	/** get all storage partitions **/
+	public List<Storage> getPartitions()
+	{
+		return allStores;
+	}
+	
+	
+	////	tests on storage partitions
+	
+	/** test standard external storage for readability **/
+	private boolean isExternalStorageReadable()
+	{
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state) ||
-			Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+			Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+		{
 			return true;
 		}
 		Log.w(TAG, "External Storage unreadable:");
@@ -63,24 +104,28 @@ public class StorageHandler
 		return false;
 	}
 	
-	/** update all store's stats **/
-	public void update() {
-		for (Storage store : allStores) {
-			store.updateStats();
-		}
-	}
 	
-	/** display stats for all stores **/
-	public String disp() {
+	////	depreciated methods from Toast display (MainService.java)
+	
+	/** 
+	 * display stats for all stores
+	 * Depreciated: part of old Toast notification service (MainService.java)
+	 **/
+	@Deprecated
+	public String disp()
+	{
 		StringBuffer sb = new StringBuffer();
 		
 		boolean isFirst = true;
-		for (Storage store : allStores) {
-			if (isFirst) {
+		for (Storage store : allStores)
+		{
+			if (isFirst)
+			{
 				sb.append(store.toString());
 				isFirst = false;
 			}
-			else {
+			else
+			{
 				sb.append("\n").append(store.toString());
 			}
 		}
