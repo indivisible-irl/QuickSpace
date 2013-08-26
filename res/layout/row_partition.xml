@@ -4,17 +4,16 @@
     android:orientation="horizontal"
     >
 	
-	<!--  pie chart (canvas drawn pie chart, fixed width) -->
-	<!--  TODO TODO different sizes for dpis -->
-	<ImageView
-		android:id="@+id/iv_piechart"
-		android:layout_width="75dp"
-		android:layout_height="75dp"
-		android:src="@android:drawable/btn_plus"
-		android:contentDescription="@string/row_pie_descrip"
+	<!--  pie chart (layout populated in PartitionArrayAdapter)  -->
+	<!--  TODO different sizes for dpis -->
+	<LinearLayout
+		android:id="@+id/row_piechart"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
 		/>
 	
-	<!--  stats section (2 rows, right panel) -->
+	<!--  stats section (2 rows, right panel)  -->
 	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="match_parent"
@@ -56,7 +55,7 @@
 			android:orientation="horizontal"
 			>
 			
-		    <!--  label (free:) -->
+		    <!--  label (free:)  -->
 		    <TextView 
 		        android:layout_height="wrap_content"
 		        android:layout_width="wrap_content"

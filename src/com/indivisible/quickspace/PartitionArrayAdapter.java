@@ -6,7 +6,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+//import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /** Custom ArrayAdapter for displaying stats on partitions **/
@@ -17,16 +19,18 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 	private static String gbFormatText = "%.2f Gb";
 	private static String percentFormatText = "%.1f%%";
 	
+	private Context context;
 	private List<Storage> partitions;
 	
 	
 	////	constructor
 	
 	/** Custom ArrayAdapter for displaying stats on partitions **/
-	public PartitionArrayAdapter(Context context, int layout, List<Storage> stores)
+	public PartitionArrayAdapter(Context ctx, int layout, List<Storage> stores)
 	{
-		super(context, layout, stores);
+		super(ctx, layout, stores);
 		partitions = stores;
+		context = ctx;
 	}
 	
 	
@@ -60,19 +64,32 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			TextView spaceTotal  = (TextView) v.findViewById(R.id.row_total_space);
 			TextView spaceFree   = (TextView) v.findViewById(R.id.row_freeGigs);
 			TextView percentFree = (TextView) v.findViewById(R.id.row_freePercent);
+			
+//			LinearLayout pieChart = (LinearLayout) v.findViewById(R.id.row_piechart);
 
-			if (title != null){
+			if (title != null)
+			{
 				title.setText(partition.getTitle());
 			}
-			if (spaceTotal != null){
+			if (spaceTotal != null)
+			{
 				spaceTotal.setText(printGigs(Storage.convBytesToGigs(partition.getSpaceTotal())));
 			}
-			if (spaceFree != null){
+			if (spaceFree != null)
+			{
 				spaceFree.setText(printGigs(Storage.convBytesToGigs(partition.getSpaceFree())));
 			}
-			if (percentFree != null){
+			if (percentFree != null)
+			{
 				percentFree.setText(printPercentage(partition.getPercentageFree()));
 			}
+//			if (pieChart != null)
+//			{
+//				long[] sizes = new long[] { partition.getSpaceUsed(), partition.getSpaceFree() };
+//				PieChartView pie = new PieChartView(context, sizes);
+//				//pie.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//				pieChart.addView(pie);
+//			}
 		}
 
 		return v;

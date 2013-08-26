@@ -104,55 +104,5 @@ public class Storage
 	{
 		return bytes / 1024f / 1024f / 1024f;
 	}
-	
-	
-	////	Old String methods for depreciated/testing simple Toast notification display (MainService.java)
-	
-	/** format long bytes into readable gigs **/
-	@Deprecated
-	private static String printableGigs(long bytes)
-	{
-		return String.format(
-				"%.2f Gb",
-				convBytesToGigs(bytes)
-				);
-	}
-	
-	/** format the % space free in readable form **/
-	@Deprecated
-	public String printablePercentage()
-	{
-		return String.format(
-				"%.1f%%",
-				getPercentageFree()
-				);
-	}
-	
-	/** return formatted total space in gigs **/
-	@Deprecated
-	public String printableSpaceTotal()
-	{
-		return printableGigs(spaceTotal);
-	}
-	
-	/** return formatted free space in gigs **/
-	@Deprecated
-	public String printableSpaceFree()
-	{
-		return printableGigs(spaceFree);
-	}
-	
-	/** used in initial simple one-line listview **/
-	////@Deprecated
-	@Override
-	public String toString()
-	{
-	    return title + String.format(
-		    "  %.1f%% of %.2f Gb  |  %.2f Gb  ",
-		    getPercentageFree(),
-			convBytesToGigs(spaceTotal),
-			convBytesToGigs(spaceFree)
-			);
-	}
 
 }

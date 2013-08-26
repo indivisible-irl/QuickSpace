@@ -90,19 +90,20 @@ public class StorageHandler
 	
 	////	tests on storage partitions
 	
-	/** test standard external storage for readability **/
-	private boolean isExternalStorageReadable()
-	{
-		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(state) ||
-			Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-		{
-			return true;
-		}
-		Log.w(TAG, "External Storage unreadable:");
-		Log.w(TAG, state);
-		return false;
-	}
+	//TODO implement this check somewhere
+//	/** test standard external storage for readability **/
+//	private boolean isExternalStorageReadable()
+//	{
+//		String state = Environment.getExternalStorageState();
+//		if (Environment.MEDIA_MOUNTED.equals(state) ||
+//			Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+//		{
+//			return true;
+//		}
+//		Log.w(TAG, "External Storage unreadable:");
+//		Log.w(TAG, state);
+//		return false;
+//	}
 	
 	
 	////	depreciated methods from Toast display (MainService.java)
