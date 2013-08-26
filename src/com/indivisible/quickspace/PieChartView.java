@@ -12,21 +12,28 @@ import android.view.View;
 public class PieChartView extends View
 {
 	private static int[] COLORS = { Color.RED, Color.GREEN };
-	private static int SIZE = 100;
 	private Paint paint;
 	private float[] values_degrees;
 	private RectF rectf;
 	int temp;
 	
 	/** Custom view to display a pie chart **/
-	public PieChartView(Context context, long[] values)
+	public PieChartView(Context context, int[] layoutSize, long[] values)
 	{
 		super(context);
 		
 		values_degrees = calculateData(values);
 		paint  = new Paint(Paint.ANTI_ALIAS_FLAG);
-		rectf = new RectF (0, 0, SIZE, SIZE);
+		rectf = new RectF (0, 0, (float) layoutSize[0], (float) layoutSize[1]);
 		temp=0;
+	}
+	
+	/** Just to get rid of the lint warning
+	 * TODO check how AttributeSet works
+	 * @param context
+	 */
+	public PieChartView(Context context) {
+		super(context);
 	}
 	
 	@Override
@@ -42,9 +49,9 @@ public class PieChartView extends View
             } 
             else
             {
-                    temp += (int) values_degrees[i - 1];
-                    paint.setColor(COLORS[i]);
-                    canvas.drawArc(rectf, temp, values_degrees[i], true, paint);
+                temp += (int) values_degrees[i - 1];
+                paint.setColor(COLORS[i]);
+                canvas.drawArc(rectf, temp, values_degrees[i], true, paint);
             }
 		}
 	}

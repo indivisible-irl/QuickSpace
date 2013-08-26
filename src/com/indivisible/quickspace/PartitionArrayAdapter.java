@@ -3,12 +3,14 @@ package com.indivisible.quickspace;
 import java.util.List;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.LinearLayout.LayoutParams;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
-//import android.widget.LinearLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /** Custom ArrayAdapter for displaying stats on partitions **/
@@ -16,10 +18,11 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 {
 	////	data
 	
+	private static String TAG = "com.indivisible.quickspace";
 	private static String gbFormatText = "%.2f Gb";
 	private static String percentFormatText = "%.1f%%";
 	
-//	private Context context;
+	private Context context;
 	private List<Storage> partitions;
 	
 	
@@ -30,9 +33,11 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 	{
 		super(ctx, layout, stores);
 		partitions = stores;
-//		context = ctx;
+		context = ctx;
 	}
 	
+	
+	//// views
 	
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
@@ -52,7 +57,7 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			TextView spaceTotal  = (TextView) v.findViewById(R.id.row_total_space);
 			TextView spaceFree   = (TextView) v.findViewById(R.id.row_freeGigs);
 			TextView percentFree = (TextView) v.findViewById(R.id.row_freePercent);
-//			LinearLayout pieChart = (LinearLayout) v.findViewById(R.id.row_piechart);
+			LinearLayout pieChartLayout = (LinearLayout) v.findViewById(R.id.row_piechart);
 
 			if (title != null)
 			{
@@ -73,19 +78,26 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 				String printablePercentageFree = printPercentage(partition.getPercentageFree());
 				percentFree.setText(printablePercentageFree);
 			}
-//			if (pieChart != null)
-//			{
-//				long[] sizes = new long[] { partition.getSpaceUsed(), partition.getSpaceFree() };
-//				PieChartView pie = new PieChartView(context, sizes);
-//				//pie.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-//				pieChart.addView(pie);
-//			}
+			if (pieChartLayout != null)
+			{
+				long[] sizes = new long[] { partition.getSpaceUsed(), partition.getSpaceFree() };
+				int[] layoutSize = new int[] { dpToPx(75), dpToPx(75) };
+				
+				for (int i : layoutSize) {
+					Log.d(TAG, "LayoutSize: " +i);
+				}
+				
+				PieChartView pie = new PieChartView(context, layoutSize, sizes);
+				pie.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+				pieChartLayout.addView(pie);
+			}
 		}
 
 		return v;
-
 	}
 	
+	
+	//// util methods
 	
 	/** util method to convert gigabyte floats to printable text **/
 	private static String printGigs(float gigs)
@@ -97,6 +109,13 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 	private static String printPercentage(float percentage)
 	{
 		return String.format(percentFormatText, percentage);
+	}
+	
+	
+	public int dpToPx(int dp) {
+	    DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+	    int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));       
+	    return px;
 	}
 	
 	
