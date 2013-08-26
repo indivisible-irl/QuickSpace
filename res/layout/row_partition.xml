@@ -8,10 +8,12 @@
 	<!--  TODO different sizes for dpis -->
 	<LinearLayout
 		android:id="@+id/row_piechart"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="75dp"
+		android:layout_height="75dp"
 		android:orientation="horizontal"
-		/>
+		>
+		<!-- pie chart gets populated in here at runtime -->
+	</LinearLayout>
 	
 	<!--  stats section (2 rows, right panel)  -->
 	<LinearLayout

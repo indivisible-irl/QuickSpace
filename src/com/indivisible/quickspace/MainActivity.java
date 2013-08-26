@@ -19,18 +19,20 @@ public class MainActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_dialog);
 		
+		Log.i(TAG, "Gather partitions...");
 		storageHandler = new StorageHandler(this.getApplicationContext());
 		storageHandler.update();
 		
 		partitions = storageHandler.getPartitions();
 		Log.d(TAG, "Num of partitions found: " +partitions.size());
 		
-		
+		Log.i(TAG, "Fill ArrayAdapter...");
 		ArrayAdapter<Storage> adapter = new PartitionArrayAdapter(
 				this.getApplicationContext(),
 				R.layout.row_partition,
 				partitions
 				);
+		Log.d(TAG, "Set ListAdapter with num elements: " +adapter.getCount());
 		setListAdapter(adapter);
 		
 		// wait for a time then dismiss the activity

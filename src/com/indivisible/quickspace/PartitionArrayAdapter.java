@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 //import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+//import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /** Custom ArrayAdapter for displaying stats on partitions **/
@@ -19,7 +19,7 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 	private static String gbFormatText = "%.2f Gb";
 	private static String percentFormatText = "%.1f%%";
 	
-	private Context context;
+//	private Context context;
 	private List<Storage> partitions;
 	
 	
@@ -30,33 +30,21 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 	{
 		super(ctx, layout, stores);
 		partitions = stores;
-		context = ctx;
+//		context = ctx;
 	}
 	
 	
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 
-		// assign the view we are converting to a local variable
 		View v = convertView;
-
-		// first check to see if the view is null. if so, we have to inflate it.
-		// to inflate it basically means to render, or show, the view.
 		if (v == null)
 		{
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = inflater.inflate(R.layout.row_partition, null);
 		}
 
-		/*
-		 * Recall that the variable position is sent in as an argument to this method.
-		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
-		 * iterates through the list we sent it)
-		 * 
-		 * Therefore, i refers to the current Item object.
-		 */
 		Storage partition = partitions.get(position);
-
 		if (partition != null)
 		{
 			//Canvas canvas = (Canvas) findViewById(...);
@@ -64,7 +52,6 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			TextView spaceTotal  = (TextView) v.findViewById(R.id.row_total_space);
 			TextView spaceFree   = (TextView) v.findViewById(R.id.row_freeGigs);
 			TextView percentFree = (TextView) v.findViewById(R.id.row_freePercent);
-			
 //			LinearLayout pieChart = (LinearLayout) v.findViewById(R.id.row_piechart);
 
 			if (title != null)
@@ -73,15 +60,18 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			}
 			if (spaceTotal != null)
 			{
-				spaceTotal.setText(printGigs(Storage.convBytesToGigs(partition.getSpaceTotal())));
+				String printableSpaceTotal = printGigs(Storage.convBytesToGigs(partition.getSpaceTotal()));
+				spaceTotal.setText(printableSpaceTotal);
 			}
 			if (spaceFree != null)
 			{
-				spaceFree.setText(printGigs(Storage.convBytesToGigs(partition.getSpaceFree())));
+				String printableSpaceFree = printGigs(Storage.convBytesToGigs(partition.getSpaceFree()));
+				spaceFree.setText(printableSpaceFree);
 			}
 			if (percentFree != null)
 			{
-				percentFree.setText(printPercentage(partition.getPercentageFree()));
+				String printablePercentageFree = printPercentage(partition.getPercentageFree());
+				percentFree.setText(printablePercentageFree);
 			}
 //			if (pieChart != null)
 //			{
