@@ -5,26 +5,31 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 
 /** Custom view to display a pie chart **/
 public class PieChartView extends View
 {
-	private static int[] COLORS = { Color.RED, Color.GREEN };
+	private static String TAG = "com.indivisible.quickspace";
+	private static int COLOR_USED = Color.RED;
+	private static int COLOR_FREE = Color.GREEN;
 	private Paint paint;
-	private float[] values_degrees;
+//	private float[] values_degrees;
+	private float freeSpaceDegrees;
 	private RectF rectf;
 	int temp;
 	
 	/** Custom view to display a pie chart **/
-	public PieChartView(Context context, int[] layoutSize, long[] values)
+	public PieChartView(Context context, int size, long spaceTotal, long spaceFree)
 	{
 		super(context);
 		
-		values_degrees = calculateData(values);
+		freeSpaceDegrees = calculateDegrees(spaceTotal, spaceFree);
 		paint  = new Paint(Paint.ANTI_ALIAS_FLAG);
-		rectf = new RectF (0, 0, (float) layoutSize[0], (float) layoutSize[1]);
+		rectf = new RectF (0, 0, (float) size, (float) size);
 		temp=0;
 	}
 	
@@ -41,36 +46,48 @@ public class PieChartView extends View
 	{
 		super.onDraw(canvas);
 		
-		for (int i = 0; i < values_degrees.length; i++)
+		Log.i(TAG, "freeSpaceDegrees: " +freeSpaceDegrees);
+		
+		for (int i = 0; i < 2; i++)
 		{
 			if (i == 0) {
-                paint.setColor(COLORS[i]);
-                canvas.drawArc(rectf, 0, values_degrees[i], true, paint);
+                paint.setColor(COLOR_USED);
+                canvas.drawArc(rectf, 270 + freeSpaceDegrees, 360, true, paint);
             } 
             else
             {
-                temp += (int) values_degrees[i - 1];
-                paint.setColor(COLORS[i]);
-                canvas.drawArc(rectf, temp, values_degrees[i], true, paint);
+                paint.setColor(COLOR_FREE);
+                canvas.drawArc(rectf, 270, freeSpaceDegrees, true, paint);
             }
 		}
 	}
 	
-	/** Calculate degrees from supplied data **/
-	private float[] calculateData(long[] data)
+	/** calculate the degrees in a circle that the free space should be represented by **/
+	private float calculateDegrees(long total, long free)
 	{
-        float total=0;
-        float[] degrees = new float[data.length];
-        for(int i=0;i<data.length;i++)
-        {
-            total+=data[i];
-        }
-        for(int i=0;i<data.length;i++)
-        {
-        degrees[i]=360*(data[i]/total);            
-        }
-        return degrees;
-    }
+		float percentage = ((float) free / (float) total);
+		Log.i(TAG, "freeSpace percentage: " +percentage);
+		return 360.0f * percentage;
+	}
+	
+	
+	
+	
+//	/** Calculate degrees from supplied data **/
+//	private float[] calculateData(long[] data)
+//	{
+//        float total=0;
+//        float[] degrees = new float[data.length];
+//        for(int i=0;i<data.length;i++)
+//        {
+//            total+=data[i];
+//        }
+//        for(int i=0;i<data.length;i++)
+//        {
+//        degrees[i]=360*(data[i]/total);            
+//        }
+//        return degrees;
+//    }
 	
 
 }

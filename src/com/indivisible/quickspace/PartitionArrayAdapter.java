@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -80,15 +81,26 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			}
 			if (pieChartLayout != null)
 			{
-				long[] sizes = new long[] { partition.getSpaceUsed(), partition.getSpaceFree() };
-				int[] layoutSize = new int[] { dpToPx(75), dpToPx(75) };
+				Log.d(TAG, "new pie: " +partition.getTitle());
 				
-				for (int i : layoutSize) {
-					Log.d(TAG, "LayoutSize: " +i);
-				}
+				Log.w(TAG, "testing dimensions:");
+				int height = pieChartLayout.getHeight();
+				int width = pieChartLayout.getWidth();
+				int measHeight = pieChartLayout.getMeasuredHeight();
+				int measWidth = pieChartLayout.getMeasuredWidth();
+				Log.i(TAG, "h: " +height);
+				Log.i(TAG, "w: " +width);
+				Log.i(TAG, "mh: " +measHeight);
+				Log.i(TAG, "mw: " +measWidth);
 				
-				PieChartView pie = new PieChartView(context, layoutSize, sizes);
+				
+				//FIXME need to get the layout's dimensions programatically or from the layout xml.
+				int size = dpToPx(75);
+				Log.d(TAG, "Pie Chart height/width in px: " +size);
+				
+				PieChartView pie = new PieChartView(context, size, partition.getSpaceTotal(), partition.getSpaceFree());
 				pie.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+				//pie.setScaleType(ScaleType.CENTER_INSIDE);
 				pieChartLayout.addView(pie);
 			}
 		}
