@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -19,7 +18,7 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 {
 	////	data
 	
-	private static String TAG = "com.indivisible.quickspace";
+	private static String TAG = "com.indivisible.quickspace.partitionarrayadapter";
 	private static String gbFormatText = "%.2f Gb";
 	private static String percentFormatText = "%.1f%%";
 	
@@ -58,6 +57,7 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			TextView spaceTotal  = (TextView) v.findViewById(R.id.row_total_space);
 			TextView spaceFree   = (TextView) v.findViewById(R.id.row_freeGigs);
 			TextView percentFree = (TextView) v.findViewById(R.id.row_freePercent);
+			
 			LinearLayout pieChartLayout = (LinearLayout) v.findViewById(R.id.row_piechart);
 
 			if (title != null)
@@ -100,7 +100,7 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 				
 				PieChartView pie = new PieChartView(context, size, partition.getSpaceTotal(), partition.getSpaceFree());
 				pie.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-				//pie.setScaleType(ScaleType.CENTER_INSIDE);
+//				pie.setScaleType(ScaleType.CENTER_INSIDE);
 				pieChartLayout.addView(pie);
 			}
 		}
