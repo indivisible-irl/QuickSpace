@@ -7,17 +7,17 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+//import android.widget.ImageView;
 
 
 /** Custom view to display a pie chart **/
 public class PieChartView extends View
 {
-	private static String TAG = "com.indivisible.quickspace";
+	private static String TAG = "com.indivisible.quickspace.piechartview";
 	private static int COLOR_USED = Color.RED;
 	private static int COLOR_FREE = Color.GREEN;
 	private Paint paint;
-//	private float[] values_degrees;
+
 	private float freeSpaceDegrees;
 	private RectF rectf;
 	int temp;
@@ -69,25 +69,6 @@ public class PieChartView extends View
 		Log.i(TAG, "freeSpace percentage: " +percentage);
 		return 360.0f * percentage;
 	}
-	
-	
-	
-	
-//	/** Calculate degrees from supplied data **/
-//	private float[] calculateData(long[] data)
-//	{
-//        float total=0;
-//        float[] degrees = new float[data.length];
-//        for(int i=0;i<data.length;i++)
-//        {
-//            total+=data[i];
-//        }
-//        for(int i=0;i<data.length;i++)
-//        {
-//        degrees[i]=360*(data[i]/total);            
-//        }
-//        return degrees;
-//    }
 	
 
 }
