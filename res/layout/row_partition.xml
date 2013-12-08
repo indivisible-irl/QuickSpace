@@ -1,3 +1,4 @@
+<!--  Layout for a single row to display info on an individual partition -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -8,8 +9,8 @@
 	<!--  TODO different sizes for dpis -->
 	<LinearLayout
 		android:id="@+id/row_piechart"
-		android:layout_width="75dp"
-		android:layout_height="75dp"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
 		android:orientation="horizontal"
 		>
 		<!-- pie chart gets populated in here at runtime -->
@@ -56,9 +57,9 @@
 			android:layout_width="match_parent"
 			android:orientation="horizontal"
 			>
-			
-		    <!--  label (free:)  -->
+
 		    <TextView 
+		        android:id="@+id/row_freeLabel"
 		        android:layout_height="wrap_content"
 		        android:layout_width="wrap_content"
 		        android:text="@string/row_free_label"
