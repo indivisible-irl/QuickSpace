@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
-//import android.widget.ImageView;
 
 
 /** Custom view to display a pie chart **/
@@ -16,29 +15,53 @@ public class PieChartView extends View
 	private static String TAG = "com.indivisible.quickspace.piechartview";
 	private static int COLOR_USED = Color.RED;
 	private static int COLOR_FREE = Color.GREEN;
+	
+	//TODO private static final int PADDING = 8; // padding in pixels for all sides
+	
 	private Paint paint;
-
-	private float freeSpaceDegrees;
 	private RectF rectf;
-	int temp;
+	private float freeSpaceDegrees;
+	
+	
+	//// constructors and initialisation
 	
 	/** Custom view to display a pie chart **/
 	public PieChartView(Context context, int size, long spaceTotal, long spaceFree)
 	{
 		super(context);
-		
-		freeSpaceDegrees = calculateDegrees(spaceTotal, spaceFree);
-		paint  = new Paint(Paint.ANTI_ALIAS_FLAG);
-		rectf = new RectF (0, 0, (float) size, (float) size);
-		temp=0;
+		init(size, spaceTotal, spaceFree);
 	}
 	
 	/** Just to get rid of the lint warning
-	 * TODO check how AttributeSet works
+	 * TODO AttributeSet??
 	 * @param context
 	 */
-	public PieChartView(Context context) {
+	public PieChartView(Context context)	//altern: PieChartView(Context context, AttributeSet attributes)
+	{
 		super(context);
+	}
+	
+	/** Initialisation method to create objects and set values **/
+	private void init(int size, long spaceTotal, long spaceFree)
+	{
+		freeSpaceDegrees = calculateDegrees(spaceTotal, spaceFree);
+		paint  = new Paint(Paint.ANTI_ALIAS_FLAG);
+		
+		//TODO defSize placeholder instead (??) of size and move actual size calc/measurement of parent's bounds to new onMeasure()
+		rectf = new RectF (0, 0, (float) size, (float) size);
+	}
+		
+	
+	//// override methods
+	
+	@Override
+	protected void onMeasure(int width, int height) {
+		//TODO http://developer.android.com/training/custom-views/custom-drawing.htm
+	}
+	
+	@Override
+	protected void onSizeChanged(int newWidth, int newHeight, int oldWidth, int oldHeight) {
+		//TODO http://developer.android.com/training/custom-views/custom-drawing.htm
 	}
 	
 	@Override
@@ -61,6 +84,8 @@ public class PieChartView extends View
             }
 		}
 	}
+	
+	//// util methods
 	
 	/** calculate the degrees in a circle that the free space should be represented by **/
 	private float calculateDegrees(long total, long free)
