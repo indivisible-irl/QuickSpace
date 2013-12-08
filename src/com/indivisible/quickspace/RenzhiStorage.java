@@ -53,8 +53,10 @@ public class RenzhiStorage
 				}
 				catch (IOException e) {}
 			}
-			return dirs;
+			
 		}
+		
+		return dirs;
 	}
 	
 }
