@@ -58,7 +58,7 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 			TextView spaceFree   = (TextView) v.findViewById(R.id.row_freeGigs);
 			TextView percentFree = (TextView) v.findViewById(R.id.row_freePercent);
 			
-			LinearLayout pieChartLayout = (LinearLayout) v.findViewById(R.id.row_piechart);
+			LinearLayout pieChartLayout = (LinearLayout) v.findViewById(R.id.row_piechart); 
 
 			if (title != null)
 			{
@@ -79,6 +79,8 @@ public class PartitionArrayAdapter extends ArrayAdapter<Storage>
 				String printablePercentageFree = printPercentage(partition.getPercentageFree());
 				percentFree.setText(printablePercentageFree);
 			}
+			
+			//FIXME where a lot of the magic needs to happen
 			if (pieChartLayout != null)
 			{
 				Log.d(TAG, "new pie: " +partition.getTitle());
